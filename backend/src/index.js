@@ -15,8 +15,8 @@ app.use(cors({
 /// Parse JSON
 app.use(express.json())
 
-// ─── 라우터 (2단계 이후 순서대로 추가) ──────────────
-// import authRoutes from './routes/auth.js'
+// Routers
+import authRoutes from "/routes/auth.js"
 // import projectRoutes from './routes/projects.js'
 // import uploadRoutes from './routes/upload.js'
 
@@ -28,9 +28,9 @@ app.use(express.json())
 app.get('/api/health', async (req, res) => {
     try {
         await prisma.$queryRaw`SELECT 1` // DB연결 확인용 쿼리
-        res.json({ status: 'ok', db: 'connected' })
+        res.json({status: 'ok', db: 'connected'})
     } catch (e) {
-        res.status(500).json({ status: 'error', db: 'disconnected' })
+        res.status(500).json({status: 'error', db: 'disconnected'})
     }
     // res.json({status: 'ok', message: 'folio server is running'})
 })

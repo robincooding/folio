@@ -5,9 +5,48 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model Project {
+  id           String         @id @default(uuid())
+  title        String
+  description  String
+  techStack    String[]
+  category     Category
+  thumbnailUrl String
+  demoUrl      String?
+  githubUrl    String?
+  createdAt    DateTime       @default(now())
+  images       ProjectImage[]
+
+  @@map("projects")
+}
+
+model ProjectImage {
+  id        String  @id @default(uuid())
+  projectId String
+  imageUrl  String
+  order     Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_images")
+}
+
+model Admin {
+  id           String @id @default(uuid())
+  email        String @unique
+  passwordHash String
+
+  @@map("admin")
+}
+
+enum Category {
+  app
+  web
+  other
 }
