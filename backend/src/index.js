@@ -16,12 +16,12 @@ app.use(cors({
 app.use(express.json())
 
 // Routers
-import authRoutes from "/routes/auth.js"
-// import projectRoutes from './routes/projects.js'
+import authRoutes from "./routes/auth.js"
+import projectRoutes from './routes/projects.js'
 // import uploadRoutes from './routes/upload.js'
 
-// app.use('/api/auth', authRoutes)
-// app.use('/api/projects', projectRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/projects', projectRoutes)
 // app.use('/api/upload', uploadRoutes)
 
 // Check Server Health
