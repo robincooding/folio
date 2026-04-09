@@ -82,6 +82,20 @@
           </div>
         </div>
 
+        <!-- 섹션 / 표시 순서 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">섹션 (폴더 탭 이름)</label>
+            <input v-model="form.section" type="text" placeholder="General"
+                   class="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"/>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">표시 순서</label>
+            <input v-model.number="form.displayOrder" type="number" min="0" placeholder="0"
+                   class="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"/>
+          </div>
+        </div>
+
         <!-- GitHub / 데모 링크 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -131,6 +145,8 @@ const form = ref({
   title: '',
   description: '',
   category: 'web',
+  section: 'General',
+  displayOrder: 0,
   techStack: [],
   thumbnailUrl: '',
   githubUrl: '',
@@ -201,6 +217,8 @@ onMounted(async () => {
         title:        p.title,
         description:  p.description,
         category:     p.category,
+        section:      p.section ?? 'General',
+        displayOrder: p.displayOrder ?? 0,
         techStack:    [...p.techStack],
         thumbnailUrl: p.thumbnailUrl ?? '',
         githubUrl:    p.githubUrl ?? '',

@@ -18,6 +18,8 @@ model Project {
   description  String
   techStack    String[]
   category     Category
+  section      String         @default("General")
+  displayOrder Int            @default(0)
   thumbnailUrl String
   demoUrl      String?
   githubUrl    String?

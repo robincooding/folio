@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     try {
         const projects = await prisma.project.findMany({
             where: category ? {category} : undefined,
-            orderBy: {createdAt: 'desc'},
+            orderBy: [{ section: 'asc' }, { displayOrder: 'asc' }, { createdAt: 'desc' }],
             include: {images: {orderBy: {order: 'asc'}}}
         })
         res.json(projects)
@@ -35,11 +35,13 @@ router.get('/:id', async (req, res) => {
 
 // POST /api/projects - 등록 (인증 필요)
 router.post('/', authMiddleware, async (req, res) => {
-    const {title, description, techStack, category, thumbnailUrl, demoUrl, githubUrl, images} = req.body
+    const {title, description, techStack, category, section, displayOrder, thumbnailUrl, demoUrl, githubUrl, images} = req.body
     try {
         const project = await prisma.project.create({
             data: {
                 title, description, techStack, category,
+                section: section || 'General',
+                displayOrder: displayOrder ?? 0,
                 thumbnailUrl, demoUrl, githubUrl,
                 images: {
                     create: images?.map((url, i) => ({imageUrl: url, order: i})) ?? []
@@ -55,11 +57,11 @@ router.post('/', authMiddleware, async (req, res) => {
 
 // PUT /api/projects/:id - 수정 (인증 필요)
 router.put('/:id', authMiddleware, async (req, res) => {
-    const { title, description, techStack, category, thumbnailUrl, demoUrl, githubUrl } = req.body
+    const { title, description, techStack, category, section, displayOrder, thumbnailUrl, demoUrl, githubUrl } = req.body
     try {
         const project = await prisma.project.update({
             where: { id: req.params.id },
-            data: { title, description, techStack, category, thumbnailUrl, demoUrl, githubUrl }
+            data: { title, description, techStack, category, section, displayOrder, thumbnailUrl, demoUrl, githubUrl }
         })
         res.json(project)
     } catch (e) {
