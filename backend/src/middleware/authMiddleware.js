@@ -5,7 +5,7 @@ export function authMiddleware(req, res, next) {
     const auth = req.headers.authorization
 
     // Authorization: Bearer <token> 형식인지 확인
-    if (!auth.startsWith('Bearer')) {
+    if (!auth || !auth.startsWith('Bearer')) {
         return res.status(401).json({message: '인증이 필요합니다'})
     }
 

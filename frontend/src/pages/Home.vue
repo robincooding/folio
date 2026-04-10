@@ -75,12 +75,28 @@
           <div class="browse-tilt">
             <div class="fstack-wrap">
 
-              <!-- Section divider tab (left) -->
-              <transition name="tab-swap" mode="out-in">
-                <div v-if="currentFile" class="section-tab" :key="currentFile.section">
-                  <span class="section-tab-label">{{ currentFile.section }}</span>
+              <!-- Left side: section tab + previous file tabs -->
+              <div class="left-tabs">
+                <transition name="tab-swap" mode="out-in">
+                  <div v-if="currentFile" class="section-tab" :key="currentFile.section">
+                    <span class="section-tab-label">{{ currentFile.section }}</span>
+                  </div>
+                </transition>
+                <div class="prev-tabs">
+                  <transition-group name="tab-list">
+                    <div
+                      v-for="tab in prevTabs"
+                      :key="tab.index"
+                      class="prev-tab"
+                      :style="{ '--ti': tab.offset }"
+                      @click="goToFile(tab.index)"
+                    >
+                      <span class="prev-tab-name">{{ tab.label }}</span>
+                      <span class="prev-tab-num">{{ String(tab.index + 1).padStart(2, '0') }}</span>
+                    </div>
+                  </transition-group>
                 </div>
-              </transition>
+              </div>
 
               <!-- Peek tabs of upcoming files (right) -->
               <div class="peek-tabs">
@@ -235,7 +251,7 @@ const allFiles = computed(() => {
 
 const currentFile = computed(() => allFiles.value[currentIndex.value] || null)
 
-// Tabs of upcoming files peeking behind current
+// Tabs of upcoming files peeking behind current (right)
 const peekTabs = computed(() => {
   const tabs = []
   const end = Math.min(currentIndex.value + 6, allFiles.value.length)
@@ -244,6 +260,20 @@ const peekTabs = computed(() => {
       label: allFiles.value[i].project.title,
       index: i,
       offset: i - currentIndex.value - 1,
+    })
+  }
+  return tabs
+})
+
+// Tabs of previous files (left)
+const prevTabs = computed(() => {
+  const tabs = []
+  const start = Math.max(currentIndex.value - 5, 0)
+  for (let i = currentIndex.value - 1; i >= start; i--) {
+    tabs.push({
+      label: allFiles.value[i].project.title,
+      index: i,
+      offset: currentIndex.value - 1 - i,
     })
   }
   return tabs
@@ -509,12 +539,18 @@ onUnmounted(() => {
   width: 620px; max-width: 88vw;
 }
 
-/* ── Section tab (left) ── */
-.section-tab {
+/* ── Left tabs container ── */
+.left-tabs {
   position: absolute;
   left: -1px; top: 24px;
   transform: translateX(-100%);
   z-index: 5;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+
+/* ── Section tab (left) ── */
+.section-tab {
 }
 .section-tab-label {
   display: block;
@@ -526,6 +562,36 @@ onUnmounted(() => {
   text-transform: uppercase; letter-spacing: 0.1em;
   box-shadow: -3px 3px 10px rgba(0,0,0,0.12);
   white-space: nowrap;
+}
+
+/* ── Previous file tabs (left, below section tab) ── */
+.prev-tabs {
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.prev-tab {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--paper-stack-1);
+  padding: 6px 10px 6px 14px;
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+  box-shadow: -3px 3px 10px rgba(0,0,0,0.1);
+  transition: all 0.25s ease;
+  max-width: 160px;
+  justify-content: flex-end;
+}
+.prev-tab:hover {
+  background: var(--paper);
+  max-width: 200px;
+  box-shadow: -3px 3px 16px rgba(0,0,0,0.18);
+}
+.prev-tab-num {
+  font-size: 11px; font-weight: 800; color: #999;
+  flex-shrink: 0;
+}
+.prev-tab-name {
+  font-size: 10px; font-weight: 600; color: #777;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 /* ── Peek tabs (right) ── */
@@ -801,7 +867,7 @@ onUnmounted(() => {
   .fsheet-title { font-size: 22px; }
   .fsheet-gallery { grid-template-columns: 1fr; }
 
-  .section-tab { display: none; }
+  .left-tabs { display: none; }
   .peek-tabs { display: none; }
 
   .browse-tilt { transform: perspective(1600px) rotateX(3deg); }
