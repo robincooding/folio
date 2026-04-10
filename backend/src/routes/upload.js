@@ -28,7 +28,7 @@ router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
             Bucket: process.env.S3_BUCKET_NAME,
             Key: key,
             Body: req.file.buffer,
-            ContentType: req.file.mimeType,
+            ContentType: req.file.mimetype,
         }))
 
         // S3 public URL 반환

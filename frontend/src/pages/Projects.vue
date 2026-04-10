@@ -2,16 +2,12 @@
   <div class="min-h-screen bg-white dark:bg-zinc-950 transition-colors duration-300">
 
     <!-- Navigation -->
-    <nav
-        class="fixed top-0 w-full z-50 backdrop-blur-md bg-white/80 dark:bg-zinc-950/80 border-b border-zinc-100 dark:border-zinc-800">
-      <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <RouterLink to="/" class="font-semibold text-zinc-900 dark:text-white tracking-tight">folio</RouterLink>
-        <div class="flex items-center gap-6">
-          <RouterLink to="/projects" class="text-sm text-zinc-900 dark:text-white font-medium">Projects</RouterLink>
-          <RouterLink to="/about"
-                      class="nav-link">
-            About
-          </RouterLink>
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-xl saturate-[1.8] bg-white/80 dark:bg-zinc-950/80 border-b border-zinc-100 dark:border-zinc-800">
+      <div class="max-w-[1100px] mx-auto px-7 h-14 flex items-center justify-between">
+        <RouterLink to="/" class="text-[16px] font-extrabold tracking-[-0.03em] text-zinc-900 dark:text-white">folio</RouterLink>
+        <div class="flex items-center gap-5">
+          <RouterLink to="/projects" class="text-[13px] font-medium text-zinc-900 dark:text-white">Projects</RouterLink>
+          <RouterLink to="/about" class="nav-link">About</RouterLink>
         </div>
       </div>
     </nav>
