@@ -92,15 +92,31 @@ import { RouterLink } from 'vue-router'
 
 const projects = [
   {
-    period: '2022.03 - 2022.11, 리팩토링 예정',
-    title: 'we:plant',
-    subtitle: '식물 추천 웹 애플리케이션 · 팀 프로젝트 (3인)',
+    period: '2026.04 - 2026.05, 지속 개선',
+    title: 'loci',
+    subtitle: '장소 큐레이션 아카이브 웹 서비스 · 개인 프로젝트',
     description:
-        '사용자 환경과 취향을 기반으로 식물을 추천하는 ML 기반 웹 서비스입니다. ' +
-        '프론트엔드 개발을 맡아 HTML/CSS/JS로 UI 전반을 설계하고 구현했으며, ' +
-        'Python 기반 추천 모델과 Java/Spring Boot 백엔드와의 연동을 담당했습니다.',
+        '좋아하는 카페·전시·골목 등 의미 있는 장소를 테마별 컬렉션으로 묶어 ' +
+        '그 순간의 감정과 맥락까지 함께 기록하는 장소 아카이브 웹 서비스입니다. ' +
+        'Vue 3 + Express/Prisma 풀스택으로 구현했고, Google Places 자동완성·지도 시각화, ' +
+        'Gemini 기반 AI 컬렉션 분석, AWS S3 이미지 업로드, JWT 인증을 연동했습니다.',
     links: [
-      { label: 'GitHub', href: '준비중(리팩토링)' },
+      { label: 'GitHub', href: 'https://github.com/robincooding/loci' },
+      { label: 'Live', href: 'https://loci-steel.vercel.app' },
+    ],
+  },
+  {
+    period: '2026.03 - ',
+    title: 'folio',
+    subtitle: '포트폴리오 사이트 · 개인 프로젝트',
+    badge: '개발 중',
+    description:
+        '현재 보고 계신 이 사이트입니다. Vue.js 3 + Vite + Tailwind CSS 프론트엔드와 ' +
+        'Node.js/Express/Prisma/PostgreSQL 백엔드로 구성되며, ' +
+        'Vercel + Railway 환경에 배포되어 있습니다. 프로젝트와 함께 계속 발전시켜 나가고 있습니다.',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/robincooding/folio' },
+      { label: 'Live', href: 'https://folio-one-nu.vercel.app' },
     ],
   },
   {
@@ -128,17 +144,15 @@ const projects = [
     ],
   },
   {
-    period: '2026.03 - ',
-    title: 'folio',
-    subtitle: '포트폴리오 사이트 · 개인 프로젝트',
-    badge: '개발 중',
+    period: '2022.03 - 2022.11, 리팩토링 예정',
+    title: 'we:plant',
+    subtitle: '식물 추천 웹 애플리케이션 · 팀 프로젝트 (3인)',
     description:
-        '현재 보고 계신 이 사이트입니다. Vue.js 3 + Vite + Tailwind CSS 프론트엔드와 ' +
-        'Node.js/Express/Prisma/PostgreSQL 백엔드로 구성되며, ' +
-        'Vercel + Railway 환경에 배포되어 있습니다. 프로젝트와 함께 계속 발전시켜 나가고 있습니다.',
+        '사용자 환경과 취향을 기반으로 식물을 추천하는 ML 기반 웹 서비스입니다. ' +
+        '프론트엔드 개발을 맡아 HTML/CSS/JS로 UI 전반을 설계하고 구현했으며, ' +
+        'Python 기반 추천 모델과 Java/Spring Boot 백엔드와의 연동을 담당했습니다.',
     links: [
-      { label: 'GitHub', href: 'https://github.com/robincooding/folio' },
-      { label: 'Live', href: 'https://folio-one-nu.vercel.app' },
+      { label: 'GitHub', href: '준비중(리팩토링)' },
     ],
   },
 ]
